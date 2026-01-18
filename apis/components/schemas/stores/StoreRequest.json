@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "required": [
+    "name",
+    "store_type",
+    "contact_phone"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 300,
+      "example": "Tech Haven GH"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500,
+      "example": "Best electronics in Accra."
+    },
+    "store_type": {
+      "type": "string",
+      "enum": ["Physical", "Online"],
+      "example": "Physical"
+    },
+    "logo": {
+      "type": "string",
+      "format": "base64",
+      "description": "Base64 encoded image string",
+      "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAE..."
+    },
+    "contact_email": {
+      "type": "string",
+      "format": "email",
+      "example": "contact@techhaven.com"
+    },
+    "contact_phone": {
+      "type": "string",
+      "example": "+233501234567"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country ID or Code",
+      "example": "GH"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency ID or Code",
+      "example": "GHS"
+    }
+  }
+}

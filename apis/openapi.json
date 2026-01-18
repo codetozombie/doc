@@ -14,6 +14,12 @@
     },
     "/app_admin/auth/activate/": {
       "$ref": "./paths/app_admin/auth/activate.json"
+    },
+    "/stores/": {
+      "$ref": "./paths/stores/list_create.json"
+    },
+    "/stores/{id}/": {
+      "$ref": "./paths/stores/detail.json"
     }
   },
   "components": {

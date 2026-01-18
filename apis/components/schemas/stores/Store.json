@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    },
+    "name": {
+      "type": "string",
+      "example": "Tech Haven GH"
+    },
+    "description": {
+      "type": "string",
+      "example": "Best electronics in Accra."
+    },
+    "store_type": {
+      "type": "string",
+      "example": "Physical"
+    },
+    "logo": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the store logo",
+      "example": "https://api.paymaster.com/media/stores/logos/logo.png"
+    },
+    "contact_email": {
+      "type": "string",
+      "example": "contact@techhaven.com"
+    },
+    "contact_phone": {
+      "type": "string",
+      "example": "+233501234567"
+    },
+    "country": {
+      "type": "string",
+      "example": "GH"
+    },
+    "currency": {
+      "type": "string",
+      "example": "GHS"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

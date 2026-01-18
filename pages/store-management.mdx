@@ -1,0 +1,32 @@
+---
+title: Store Management
+---
+
+# Store Management
+
+Merchants can manage multiple stores under a single account. A store represents a physical or online entity that holds products and processes transactions.
+
+## Overview
+
+The Store API allows you to:
+- **Create** new stores (Physical or Online).
+- **Update** store details, including uploading logos.
+- **List** all active stores owned by your account.
+- **Delete** stores (with intelligent soft-delete protection if products exist).
+
+## Endpoints
+
+### List & Create Stores
+<div className="api-badge get">GET</div> <div className="api-badge post">POST</div> `/stores/`
+
+Use the `GET` method to retrieve all your stores. Use `POST` to create a new one.
+
+### Store Details
+<div className="api-badge get">GET</div> <div className="api-badge patch">PATCH</div> <div className="api-badge delete">DELETE</div> `/stores/{id}/`
+
+Manage a specific store. 
+
+> **Note on Deletion:** If you attempt to delete a store that already has products attached to it, the system will **deactivate** the store (soft delete) to preserve transaction history, rather than permanently deleting the record.
+
+## Image Handling
+When creating or updating a store, the `logo` field accepts a **Base64 encoded string**. The API will decode this, save the image file, and return a full URL in the response.

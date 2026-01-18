@@ -1,0 +1,92 @@
+{
+  "get": {
+    "tags": ["Stores"],
+    "summary": "Get Store Details",
+    "description": "Retrieve details of a specific store.",
+    "operationId": "getStore",
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "The unique ID of the store"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Store details",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/stores/Store.json"
+            }
+          }
+        }
+      },
+      "404": { "description": "Store not found" }
+    }
+  },
+  "patch": {
+    "tags": ["Stores"],
+    "summary": "Update Store",
+    "description": "Update specific fields of a store (e.g., logo, description).",
+    "operationId": "updateStore",
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../../components/schemas/stores/StoreRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Store updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/stores/Store.json"
+            }
+          }
+        }
+      }
+    }
+  },
+  "delete": {
+    "tags": ["Stores"],
+    "summary": "Delete Store",
+    "description": "Deletes a store. If the store has existing products, it will be deactivated (soft deleted) instead of permanently removed.",
+    "operationId": "deleteStore",
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "204": { "description": "Store deleted or deactivated successfully" },
+      "404": { "description": "Store not found" }
+    }
+  }
+}

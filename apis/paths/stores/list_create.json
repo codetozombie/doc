@@ -1,0 +1,59 @@
+{
+  "get": {
+    "tags": ["Stores"],
+    "summary": "List My Stores",
+    "description": "Retrieve a list of active stores owned by the authenticated merchant.",
+    "operationId": "listStores",
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "responses": {
+      "200": {
+        "description": "List of stores",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "../../components/schemas/stores/Store.json"
+              }
+            }
+          }
+        }
+      },
+      "401": { "description": "Unauthorized" }
+    }
+  },
+  "post": {
+    "tags": ["Stores"],
+    "summary": "Create Store",
+    "description": "Create a new store. The authenticated user is automatically assigned as the owner.",
+    "operationId": "createStore",
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../../components/schemas/stores/StoreRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Store created successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/stores/Store.json"
+            }
+          }
+        }
+      },
+      "400": { "description": "Validation Error" }
+    }
+  }
+}
