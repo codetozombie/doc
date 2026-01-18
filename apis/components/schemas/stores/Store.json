@@ -4,6 +4,8 @@
     "id": {
       "type": "string",
       "format": "uuid",
+      "readOnly": true,
+      "description": "Unique identifier for the store.",
       "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
     },
     "name": {
@@ -12,7 +14,7 @@
     },
     "description": {
       "type": "string",
-      "example": "Best electronics in Accra."
+      "example": "Premium electronics and accessories in Accra."
     },
     "store_type": {
       "type": "string",
@@ -21,12 +23,13 @@
     "logo": {
       "type": "string",
       "format": "uri",
-      "description": "URL to the store logo",
-      "example": "https://api.paymaster.com/media/stores/logos/logo.png"
+      "description": "Public URL to the store's logo image.",
+      "example": "https://api.paymaster.com/media/stores/logos/tech-haven.png"
     },
     "contact_email": {
       "type": "string",
-      "example": "contact@techhaven.com"
+      "format": "email",
+      "example": "support@techhaven.com"
     },
     "contact_phone": {
       "type": "string",
@@ -34,19 +37,32 @@
     },
     "country": {
       "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code.",
       "example": "GH"
     },
     "currency": {
       "type": "string",
+      "description": "ISO 4217 currency code.",
       "example": "GHS"
+    },
+    "owner_id": {
+      "type": "string",
+      "format": "uuid",
+      "readOnly": true,
+      "description": "UUID of the merchant who owns this store.",
+      "example": "user-uuid-1234-5678"
     },
     "created_at": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "readOnly": true,
+      "example": "2024-01-01T12:00:00Z"
     },
     "updated_at": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "readOnly": true,
+      "example": "2024-01-02T15:30:00Z"
     }
   }
 }

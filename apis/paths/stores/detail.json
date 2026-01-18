@@ -2,8 +2,8 @@
   "get": {
     "tags": ["Stores"],
     "summary": "Get Store Details",
-    "description": "Retrieve details of a specific store.",
-    "operationId": "getStore",
+    "description": "Retrieve detailed information for a specific store by its ID.",
+    "operationId": "retrieveStore",
     "security": [
       { "bearerAuth": [] }
     ],
@@ -12,13 +12,13 @@
         "name": "id",
         "in": "path",
         "required": true,
-        "schema": { "type": "string" },
-        "description": "The unique ID of the store"
+        "schema": { "type": "string", "format": "uuid" },
+        "description": "The unique UUID of the store."
       }
     ],
     "responses": {
       "200": {
-        "description": "Store details",
+        "description": "Store details retrieved successfully.",
         "content": {
           "application/json": {
             "schema": {
@@ -27,14 +27,15 @@
           }
         }
       },
-      "404": { "description": "Store not found" }
+      "403": { "description": "Forbidden. You do not have permission to view this store." },
+      "404": { "description": "Store not found." }
     }
   },
   "patch": {
     "tags": ["Stores"],
-    "summary": "Update Store",
-    "description": "Update specific fields of a store (e.g., logo, description).",
-    "operationId": "updateStore",
+    "summary": "Update Store Details",
+    "description": "Update specific fields of an existing store. Only the owner can perform this action.",
+    "operationId": "partialUpdateStore",
     "security": [
       { "bearerAuth": [] }
     ],
@@ -43,7 +44,7 @@
         "name": "id",
         "in": "path",
         "required": true,
-        "schema": { "type": "string" }
+        "schema": { "type": "string", "format": "uuid" }
       }
     ],
     "requestBody": {
@@ -57,7 +58,7 @@
     },
     "responses": {
       "200": {
-        "description": "Store updated",
+        "description": "Store updated successfully.",
         "content": {
           "application/json": {
             "schema": {
@@ -65,13 +66,16 @@
             }
           }
         }
-      }
+      },
+      "400": { "description": "Validation Error. Invalid data provided." },
+      "403": { "description": "Forbidden. You are not the owner of this store." },
+      "404": { "description": "Store not found." }
     }
   },
   "delete": {
     "tags": ["Stores"],
     "summary": "Delete Store",
-    "description": "Deletes a store. If the store has existing products, it will be deactivated (soft deleted) instead of permanently removed.",
+    "description": "Soft delete a store. If the store has active products or history, it will be marked as inactive rather than permanently removed.",
     "operationId": "deleteStore",
     "security": [
       { "bearerAuth": [] }
@@ -81,12 +85,13 @@
         "name": "id",
         "in": "path",
         "required": true,
-        "schema": { "type": "string" }
+        "schema": { "type": "string", "format": "uuid" }
       }
     ],
     "responses": {
-      "204": { "description": "Store deleted or deactivated successfully" },
-      "404": { "description": "Store not found" }
+      "204": { "description": "Store successfully deleted or deactivated." },
+      "403": { "description": "Forbidden. You do not have permission to delete this store." },
+      "404": { "description": "Store not found." }
     }
   }
 }

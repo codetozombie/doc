@@ -154,8 +154,8 @@
           "Stores"
         ],
         "summary": "List My Stores",
-        "description": "Retrieve a list of active stores owned by the authenticated merchant.",
-        "operationId": "listStores",
+        "description": "Retrieve a paginated list of all active stores owned by the currently authenticated merchant.",
+        "operationId": "listMyStores",
         "security": [
           {
             "bearerAuth": []
@@ -163,7 +163,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List of stores",
+            "description": "Successfully retrieved list of stores.",
             "content": {
               "application/json": {
                 "schema": {
@@ -176,7 +176,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized. Token is missing or invalid."
           }
         }
       },
@@ -184,8 +184,8 @@
         "tags": [
           "Stores"
         ],
-        "summary": "Create Store",
-        "description": "Create a new store. The authenticated user is automatically assigned as the owner.",
+        "summary": "Create a New Store",
+        "description": "Create a new store record. The authenticated user is automatically assigned as the owner. Requires valid country and currency codes.",
         "operationId": "createStore",
         "security": [
           {
@@ -204,7 +204,7 @@
         },
         "responses": {
           "201": {
-            "description": "Store created successfully",
+            "description": "Store created successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -214,7 +214,10 @@
             }
           },
           "400": {
-            "description": "Validation Error"
+            "description": "Validation Error. Invalid input data (e.g., missing fields, bad format)."
+          },
+          "401": {
+            "description": "Unauthorized. User must be logged in to create a store."
           }
         }
       }
@@ -225,8 +228,8 @@
           "Stores"
         ],
         "summary": "Get Store Details",
-        "description": "Retrieve details of a specific store.",
-        "operationId": "getStore",
+        "description": "Retrieve detailed information for a specific store by its ID.",
+        "operationId": "retrieveStore",
         "security": [
           {
             "bearerAuth": []
@@ -238,14 +241,15 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             },
-            "description": "The unique ID of the store"
+            "description": "The unique UUID of the store."
           }
         ],
         "responses": {
           "200": {
-            "description": "Store details",
+            "description": "Store details retrieved successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -254,8 +258,11 @@
               }
             }
           },
+          "403": {
+            "description": "Forbidden. You do not have permission to view this store."
+          },
           "404": {
-            "description": "Store not found"
+            "description": "Store not found."
           }
         }
       },
@@ -263,9 +270,9 @@
         "tags": [
           "Stores"
         ],
-        "summary": "Update Store",
-        "description": "Update specific fields of a store (e.g., logo, description).",
-        "operationId": "updateStore",
+        "summary": "Update Store Details",
+        "description": "Update specific fields of an existing store. Only the owner can perform this action.",
+        "operationId": "partialUpdateStore",
         "security": [
           {
             "bearerAuth": []
@@ -277,7 +284,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -292,7 +300,7 @@
         },
         "responses": {
           "200": {
-            "description": "Store updated",
+            "description": "Store updated successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -300,6 +308,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Validation Error. Invalid data provided."
+          },
+          "403": {
+            "description": "Forbidden. You are not the owner of this store."
+          },
+          "404": {
+            "description": "Store not found."
           }
         }
       },
@@ -308,7 +325,7 @@
           "Stores"
         ],
         "summary": "Delete Store",
-        "description": "Deletes a store. If the store has existing products, it will be deactivated (soft deleted) instead of permanently removed.",
+        "description": "Soft delete a store. If the store has active products or history, it will be marked as inactive rather than permanently removed.",
         "operationId": "deleteStore",
         "security": [
           {
@@ -321,16 +338,20 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
         "responses": {
           "204": {
-            "description": "Store deleted or deactivated successfully"
+            "description": "Store successfully deleted or deactivated."
+          },
+          "403": {
+            "description": "Forbidden. You do not have permission to delete this store."
           },
           "404": {
-            "description": "Store not found"
+            "description": "Store not found."
           }
         }
       }
@@ -437,6 +458,8 @@
           "id": {
             "type": "string",
             "format": "uuid",
+            "readOnly": true,
+            "description": "Unique identifier for the store.",
             "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
           },
           "name": {
@@ -445,7 +468,7 @@
           },
           "description": {
             "type": "string",
-            "example": "Best electronics in Accra."
+            "example": "Premium electronics and accessories in Accra."
           },
           "store_type": {
             "type": "string",
@@ -454,12 +477,13 @@
           "logo": {
             "type": "string",
             "format": "uri",
-            "description": "URL to the store logo",
-            "example": "https://api.paymaster.com/media/stores/logos/logo.png"
+            "description": "Public URL to the store's logo image.",
+            "example": "https://api.paymaster.com/media/stores/logos/tech-haven.png"
           },
           "contact_email": {
             "type": "string",
-            "example": "contact@techhaven.com"
+            "format": "email",
+            "example": "support@techhaven.com"
           },
           "contact_phone": {
             "type": "string",
@@ -467,19 +491,32 @@
           },
           "country": {
             "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code.",
             "example": "GH"
           },
           "currency": {
             "type": "string",
+            "description": "ISO 4217 currency code.",
             "example": "GHS"
+          },
+          "owner_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "UUID of the merchant who owns this store.",
+            "example": "user-uuid-1234-5678"
           },
           "created_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "readOnly": true,
+            "example": "2024-01-01T12:00:00Z"
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "readOnly": true,
+            "example": "2024-01-02T15:30:00Z"
           }
         }
       },
@@ -488,50 +525,66 @@
         "required": [
           "name",
           "store_type",
-          "contact_phone"
+          "contact_phone",
+          "country",
+          "currency"
         ],
         "properties": {
           "name": {
             "type": "string",
-            "maxLength": 300,
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "The public name of the store.",
             "example": "Tech Haven GH"
           },
           "description": {
             "type": "string",
             "maxLength": 500,
-            "example": "Best electronics in Accra."
+            "description": "A short bio or description of what the store sells.",
+            "example": "Premium electronics and accessories in Accra."
           },
           "store_type": {
             "type": "string",
             "enum": [
               "Physical",
-              "Online"
+              "Online",
+              "Hybrid"
             ],
+            "description": "The operational model of the store.",
             "example": "Physical"
           },
           "logo": {
             "type": "string",
             "format": "base64",
-            "description": "Base64 encoded image string",
+            "description": "Base64 encoded image string for the store logo (Max 2MB).",
             "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAE..."
           },
           "contact_email": {
             "type": "string",
             "format": "email",
-            "example": "contact@techhaven.com"
+            "description": "Public contact email for customer inquiries.",
+            "example": "support@techhaven.com"
           },
           "contact_phone": {
             "type": "string",
+            "pattern": "^\\+?[1-9]\\d{1,14}$",
+            "description": "Public contact phone number in E.164 format.",
             "example": "+233501234567"
           },
           "country": {
             "type": "string",
-            "description": "Country ID or Code",
+            "minLength": 2,
+            "maxLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "description": "ISO 3166-1 alpha-2 country code.",
             "example": "GH"
           },
           "currency": {
             "type": "string",
-            "description": "Currency ID or Code",
+            "minLength": 3,
+            "maxLength": 3,
+            "pattern": "^[A-Z]{3}$",
+            "description": "ISO 4217 currency code.",
             "example": "GHS"
           }
         }

@@ -33,6 +33,15 @@ const config: ZudokuConfig = {
         },
         {
           type: "category",
+          label: "Modules",
+          icon: "box",
+          items: [
+            "/store-management",
+            "/product-management"
+          ]
+        },
+        {
+          type: "category",
           label: "Useful Links",
           collapsible: false,
           icon: "link",

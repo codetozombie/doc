@@ -1,0 +1,42 @@
+---
+title: Product Management
+---
+
+# Product Management
+
+Merchants can manage a diverse catalog of items across multiple stores.
+The Product API supports different product types, categorization, and inventory tracking.
+
+## Overview
+
+The Product API allows you to:
+- **Create** products attached to specific stores.
+- **Categorize** items for better organization.
+- **Manage** inventory tracking.
+- **Bundle** multiple products into a single deal.
+
+## Product Types
+
+The system supports two distinct types of products:
+
+| Type | Description |
+| :--- | :--- |
+| **Simple** | A standard physical or digital item (e.g., "Wireless Mouse"). |
+| **Bundle** | A collection of Simple products sold together as a single unit (e.g., "Work From Home Kit"). |
+
+## Endpoints
+
+### List & Create Products
+<div className="api-badge get">GET</div> <div className="api-badge post">POST</div> `/products/`
+
+Retrieve a list of products. You can filter results by:
+- `store_id`: Get products for a specific store.
+- `category_id`: Get products in a specific category.
+- `type`: Filter by "Simple" or "Bundle".
+
+### Product Categories
+<div className="api-badge get">GET</div> <div className="api-badge post">POST</div> `/products/categories/`
+
+Manage the taxonomy of your catalog. Categories help organize products for your customers.
+
+> **Note on Bundles:** When creating a **Bundle** product, you must specify the `bundle_items` list, which references existing **Simple** products and their quantities.

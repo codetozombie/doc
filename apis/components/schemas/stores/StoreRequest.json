@@ -3,47 +3,62 @@
   "required": [
     "name",
     "store_type",
-    "contact_phone"
+    "contact_phone",
+    "country",
+    "currency"
   ],
   "properties": {
     "name": {
       "type": "string",
-      "maxLength": 300,
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "The public name of the store.",
       "example": "Tech Haven GH"
     },
     "description": {
       "type": "string",
       "maxLength": 500,
-      "example": "Best electronics in Accra."
+      "description": "A short bio or description of what the store sells.",
+      "example": "Premium electronics and accessories in Accra."
     },
     "store_type": {
       "type": "string",
-      "enum": ["Physical", "Online"],
+      "enum": ["Physical", "Online", "Hybrid"],
+      "description": "The operational model of the store.",
       "example": "Physical"
     },
     "logo": {
       "type": "string",
       "format": "base64",
-      "description": "Base64 encoded image string",
+      "description": "Base64 encoded image string for the store logo (Max 2MB).",
       "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAE..."
     },
     "contact_email": {
       "type": "string",
       "format": "email",
-      "example": "contact@techhaven.com"
+      "description": "Public contact email for customer inquiries.",
+      "example": "support@techhaven.com"
     },
     "contact_phone": {
       "type": "string",
+      "pattern": "^\\+?[1-9]\\d{1,14}$",
+      "description": "Public contact phone number in E.164 format.",
       "example": "+233501234567"
     },
     "country": {
       "type": "string",
-      "description": "Country ID or Code",
+      "minLength": 2,
+      "maxLength": 2,
+      "pattern": "^[A-Z]{2}$",
+      "description": "ISO 3166-1 alpha-2 country code.",
       "example": "GH"
     },
     "currency": {
       "type": "string",
-      "description": "Currency ID or Code",
+      "minLength": 3,
+      "maxLength": 3,
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 currency code.",
       "example": "GHS"
     }
   }
