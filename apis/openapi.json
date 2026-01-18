@@ -20,6 +20,12 @@
     },
     "/stores/{id}/": {
       "$ref": "./paths/stores/detail.json"
+    },
+    "/products/": {
+      "$ref": "./paths/products/list_create.json"
+    },
+    "/products/categories/": {
+      "$ref": "./paths/products/categories.json"
     }
   },
   "components": {
