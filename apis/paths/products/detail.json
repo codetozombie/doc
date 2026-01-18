@@ -1,0 +1,16 @@
+{
+  "get": {
+    "tags": ["Products"],
+    "summary": "Retrieve Product",
+    "operationId": "retrieveProduct",
+    "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
+    "responses": { "200": { "description": "Product details" } }
+  },
+  "delete": {
+    "tags": ["Products"],
+    "summary": "Delete Product",
+    "operationId": "deleteProduct",
+    "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
+    "responses": { "204": { "description": "Product deleted" } }
+  }
+}

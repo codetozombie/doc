@@ -1,0 +1,11 @@
+{
+  "delete": {
+    "tags": ["Bundle Items"],
+    "summary": "Remove Product From Bundle",
+    "operationId": "removeBundleItem",
+    "parameters": [
+      { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "The Bundle Item ID (not Product ID)" }
+    ],
+    "responses": { "204": { "description": "Item removed" } }
+  }
+}

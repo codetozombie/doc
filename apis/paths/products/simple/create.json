@@ -1,0 +1,11 @@
+{
+  "post": {
+    "tags": ["Simple Products"],
+    "summary": "Create Simple Product",
+    "operationId": "createSimpleProduct",
+    "requestBody": {
+      "content": { "application/json": { "schema": { "$ref": "../../../components/schemas/products/ProductRequest.json" } } }
+    },
+    "responses": { "201": { "description": "Product created" } }
+  }
+}

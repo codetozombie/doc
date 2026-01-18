@@ -1,0 +1,21 @@
+{
+  "post": {
+    "tags": ["Product Images"],
+    "summary": "Add Product Image",
+    "operationId": "addProductImage",
+    "requestBody": {
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "format": "uuid" },
+              "image": { "type": "string", "format": "binary" }
+            }
+          }
+        }
+      }
+    },
+    "responses": { "201": { "description": "Image added" } }
+  }
+}

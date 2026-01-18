@@ -1,0 +1,30 @@
+{
+  "get": {
+    "tags": ["Product Category"],
+    "summary": "Retrieve Product Category",
+    "operationId": "retrieveProductCategory",
+    "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
+    "responses": { "200": { "description": "Category details" } }
+  },
+  "put": {
+    "tags": ["Product Category"],
+    "summary": "Update Product Category",
+    "operationId": "updateProductCategory",
+    "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": { "type": "object", "properties": { "name": { "type": "string" } } }
+        }
+      }
+    },
+    "responses": { "200": { "description": "Category updated" } }
+  },
+  "delete": {
+    "tags": ["Product Category"],
+    "summary": "Delete Product Category",
+    "operationId": "deleteProductCategory",
+    "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
+    "responses": { "204": { "description": "Category deleted" } }
+  }
+}

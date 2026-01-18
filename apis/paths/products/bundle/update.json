@@ -1,0 +1,12 @@
+{
+  "put": {
+    "tags": ["Bundle Products"],
+    "summary": "Update Bundle Product",
+    "operationId": "updateBundleProduct",
+    "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
+    "requestBody": {
+      "content": { "application/json": { "schema": { "$ref": "../../../components/schemas/products/ProductRequest.json" } } }
+    },
+    "responses": { "200": { "description": "Bundle updated" } }
+  }
+}

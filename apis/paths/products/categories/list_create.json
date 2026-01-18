@@ -1,0 +1,25 @@
+{
+  "get": {
+    "tags": ["Product Category"],
+    "summary": "List Product Category",
+    "operationId": "listProductCategories",
+    "responses": { "200": { "description": "List of categories" } }
+  },
+  "post": {
+    "tags": ["Product Category"],
+    "summary": "Create Product Category",
+    "operationId": "createProductCategory",
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": ["name"],
+            "properties": { "name": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "responses": { "201": { "description": "Category created" } }
+  }
+}

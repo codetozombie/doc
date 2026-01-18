@@ -1,0 +1,22 @@
+{
+  "put": {
+    "tags": ["Bundle Items"],
+    "summary": "Add Product To Bundle",
+    "operationId": "addBundleItem",
+    "parameters": [
+      { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "Bundle ID" }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": ["product"],
+            "properties": { "product": { "type": "string", "format": "uuid", "description": "Simple Product ID to add" } }
+          }
+        }
+      }
+    },
+    "responses": { "200": { "description": "Item added" } }
+  }
+}

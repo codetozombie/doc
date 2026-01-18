@@ -6,6 +6,48 @@
     "description": "API documentation for PayMaster Africa."
   },
   "paths": {
+    "/stores/": {
+      "$ref": "./paths/stores/list_create.json"
+    },
+    "/stores/{id}/": {
+      "$ref": "./paths/stores/detail.json"
+    },
+    "/products/": {
+      "$ref": "./paths/products/list.json"
+    },
+    "/products/{id}/": {
+      "$ref": "./paths/products/detail.json"
+    },
+    "/products/simple/": {
+      "$ref": "./paths/products/simple/create.json"
+    },
+    "/products/simple/{id}/": {
+      "$ref": "./paths/products/simple/update.json"
+    },
+    "/products/bundle/": {
+      "$ref": "./paths/products/bundle/create.json"
+    },
+    "/products/bundle/{id}/": {
+      "$ref": "./paths/products/bundle/update.json"
+    },
+    "/products/bundle/{id}/items/": {
+      "$ref": "./paths/products/bundle/items/add.json"
+    },
+    "/products/bundle/items/{id}/": {
+      "$ref": "./paths/products/bundle/items/remove.json"
+    },
+    "/products/images/": {
+      "$ref": "./paths/products/images/create.json"
+    },
+    "/products/images/{id}/": {
+      "$ref": "./paths/products/images/delete.json"
+    },
+    "/products/categories/": {
+      "$ref": "./paths/products/categories/list_create.json"
+    },
+    "/products/categories/{id}/": {
+      "$ref": "./paths/products/categories/detail.json"
+    },
     "/app_admin/auth/register/": {
       "$ref": "./paths/app_admin/auth/register.json"
     },
@@ -14,342 +56,14 @@
     },
     "/app_admin/auth/activate/": {
       "$ref": "./paths/app_admin/auth/activate.json"
-    },
-    "/stores/": {
-      "get": {
-        "tags": ["Stores"],
-        "summary": "List Stores",
-        "operationId": "listStores",
-        "responses": {
-          "200": {
-            "description": "List of stores"
-          }
-        }
-      },
-      "post": {
-        "tags": ["Stores"],
-        "summary": "Create Store",
-        "operationId": "createStore",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StoreRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Store created"
-          }
-        }
-      }
-    },
-    "/stores/{id}/": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "description": "Store ID"
-        }
-      ],
-      "get": {
-        "tags": ["Stores"],
-        "summary": "Retrieve Store",
-        "operationId": "retrieveStore",
-        "responses": {
-          "200": {
-            "description": "Store details"
-          }
-        }
-      },
-      "patch": {
-        "tags": ["Stores"],
-        "summary": "Update Store",
-        "operationId": "updateStore",
-        "responses": {
-          "200": {
-            "description": "Store updated"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Stores"],
-        "summary": "Delete Store",
-        "operationId": "deleteStore",
-        "responses": {
-          "204": {
-            "description": "Store deleted"
-          }
-        }
-      }
-    },
-    "/products/categories/": {
-      "get": {
-        "tags": ["Categories"],
-        "summary": "List Product Categories",
-        "responses": {
-          "200": {
-            "description": "List categories"
-          }
-        }
-      },
-      "post": {
-        "tags": ["Categories"],
-        "summary": "Create Product Category",
-        "responses": {
-          "201": {
-            "description": "Category created"
-          }
-        }
-      }
-    },
-    "/products/categories/{id}/": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "description": "Category ID"
-        }
-      ],
-      "get": {
-        "tags": ["Categories"],
-        "summary": "Retrieve Product Category",
-        "responses": {
-          "200": {
-            "description": "Category details"
-          }
-        }
-      },
-      "put": {
-        "tags": ["Categories"],
-        "summary": "Update Product Category",
-        "responses": {
-          "200": {
-            "description": "Category updated"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Categories"],
-        "summary": "Delete Product Category",
-        "responses": {
-          "204": {
-            "description": "Category deleted"
-          }
-        }
-      }
-    },
-    "/products/simple/": {
-      "post": {
-        "tags": ["Simple Products"],
-        "summary": "Create Simple Product",
-        "description": "Create a standard product (not a bundle).",
-        "responses": {
-          "201": {
-            "description": "Product created"
-          }
-        }
-      }
-    },
-    "/products/simple/{id}/": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "description": "Product ID"
-        }
-      ],
-      "put": {
-        "tags": ["Simple Products"],
-        "summary": "Update Simple Product",
-        "responses": {
-          "200": {
-            "description": "Product updated"
-          }
-        }
-      }
-    },
-    "/products/bundle/": {
-      "post": {
-        "tags": ["Bundle Products"],
-        "summary": "Create Bundle Product",
-        "description": "Create a product composed of other simple products.",
-        "responses": {
-          "201": {
-            "description": "Bundle created"
-          }
-        }
-      }
-    },
-    "/products/bundle/{id}/": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "description": "Bundle ID"
-        }
-      ],
-      "put": {
-        "tags": ["Bundle Products"],
-        "summary": "Update Bundle Product",
-        "responses": {
-          "200": {
-            "description": "Bundle updated"
-          }
-        }
-      }
-    },
-    "/products/bundle/{id}/items/": {
-      "put": {
-        "tags": ["Bundle Products"],
-        "summary": "Add Product to Bundle",
-        "description": "Add an existing simple product to a bundle.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID of the Bundle"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Item added to bundle"
-          }
-        }
-      }
-    },
-    "/products/bundle/items/{id}/": {
-      "delete": {
-        "tags": ["Bundle Products"],
-        "summary": "Delete Product from Bundle",
-        "description": "Remove a specific item from a bundle.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID of the Bundle Item (not the product ID)"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Item removed"
-          }
-        }
-      }
-    },
-    "/products/images/": {
-      "post": {
-        "tags": ["Product Images"],
-        "summary": "Add Product Image",
-        "description": "Upload an image for ANY product type (Simple or Bundle).",
-        "responses": {
-          "201": {
-            "description": "Image uploaded"
-          }
-        }
-      }
-    },
-    "/products/images/{id}/": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "description": "Image ID"
-        }
-      ],
-      "delete": {
-        "tags": ["Product Images"],
-        "summary": "Delete Product Image",
-        "responses": {
-          "204": {
-            "description": "Image deleted"
-          }
-        }
-      }
-    },
-    "/products/": {
-      "get": {
-        "tags": ["Products"],
-        "summary": "List All Products",
-        "description": "Get a list of all products (Simple and Bundle).",
-        "responses": {
-          "200": {
-            "description": "List of products"
-          }
-        }
-      }
-    },
-    "/products/{id}/": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "description": "Product ID"
-        }
-      ],
-      "get": {
-        "tags": ["Products"],
-        "summary": "Retrieve Product",
-        "responses": {
-          "200": {
-            "description": "Product details"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Products"],
-        "summary": "Delete Product",
-        "responses": {
-          "204": {
-            "description": "Product deleted"
-          }
-        }
-      }
     }
   },
   "components": {
-    "schemas": {
-      "StoreRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        }
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

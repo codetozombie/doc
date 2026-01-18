@@ -1,0 +1,25 @@
+{
+  "post": {
+    "tags": ["Bundle Products"],
+    "summary": "Create Bundle Product",
+    "operationId": "createBundleProduct",
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": ["store", "category", "name", "price", "products"],
+            "properties": {
+              "store": { "type": "string", "format": "uuid" },
+              "category": { "type": "string", "format": "uuid" },
+              "name": { "type": "string" },
+              "price": { "type": "string" },
+              "products": { "type": "array", "items": { "type": "string", "format": "uuid" } }
+            }
+          }
+        }
+      }
+    },
+    "responses": { "201": { "description": "Bundle created" } }
+  }
+}

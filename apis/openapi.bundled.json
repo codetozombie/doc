@@ -6,6 +6,610 @@
     "description": "API documentation for PayMaster Africa."
   },
   "paths": {
+    "/stores/": {
+      "get": {
+        "tags": [
+          "Stores"
+        ],
+        "summary": "List Stores",
+        "operationId": "listStores",
+        "responses": {
+          "200": {
+            "description": "List of stores"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Stores"
+        ],
+        "summary": "Create Store",
+        "operationId": "createStore",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Store created"
+          }
+        }
+      }
+    },
+    "/stores/{id}/": {
+      "get": {
+        "tags": [
+          "Stores"
+        ],
+        "summary": "Retrieve Store",
+        "operationId": "retrieveStore",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Store details"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Stores"
+        ],
+        "summary": "Update Store",
+        "operationId": "updateStore",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Store updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Stores"
+        ],
+        "summary": "Delete Store",
+        "operationId": "deleteStore",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Store deleted"
+          }
+        }
+      }
+    },
+    "/products/": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "List Products",
+        "operationId": "listProducts",
+        "parameters": [
+          {
+            "name": "store",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of products"
+          }
+        }
+      }
+    },
+    "/products/{id}/": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Retrieve Product",
+        "operationId": "retrieveProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product details"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Delete Product",
+        "operationId": "deleteProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product deleted"
+          }
+        }
+      }
+    },
+    "/products/simple/": {
+      "post": {
+        "tags": [
+          "Simple Products"
+        ],
+        "summary": "Create Simple Product",
+        "operationId": "createSimpleProduct",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product created"
+          }
+        }
+      }
+    },
+    "/products/simple/{id}/": {
+      "put": {
+        "tags": [
+          "Simple Products"
+        ],
+        "summary": "Update Simple Product",
+        "operationId": "updateSimpleProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product updated"
+          }
+        }
+      }
+    },
+    "/products/bundle/": {
+      "post": {
+        "tags": [
+          "Bundle Products"
+        ],
+        "summary": "Create Bundle Product",
+        "operationId": "createBundleProduct",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "store",
+                  "category",
+                  "name",
+                  "price",
+                  "products"
+                ],
+                "properties": {
+                  "store": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "category": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "string"
+                  },
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Bundle created"
+          }
+        }
+      }
+    },
+    "/products/bundle/{id}/": {
+      "put": {
+        "tags": [
+          "Bundle Products"
+        ],
+        "summary": "Update Bundle Product",
+        "operationId": "updateBundleProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bundle updated"
+          }
+        }
+      }
+    },
+    "/products/bundle/{id}/items/": {
+      "put": {
+        "tags": [
+          "Bundle Items"
+        ],
+        "summary": "Add Product To Bundle",
+        "operationId": "addBundleItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Bundle ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "product"
+                ],
+                "properties": {
+                  "product": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Simple Product ID to add"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item added"
+          }
+        }
+      }
+    },
+    "/products/bundle/items/{id}/": {
+      "delete": {
+        "tags": [
+          "Bundle Items"
+        ],
+        "summary": "Remove Product From Bundle",
+        "operationId": "removeBundleItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The Bundle Item ID (not Product ID)"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Item removed"
+          }
+        }
+      }
+    },
+    "/products/images/": {
+      "post": {
+        "tags": [
+          "Product Images"
+        ],
+        "summary": "Add Product Image",
+        "operationId": "addProductImage",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Image added"
+          }
+        }
+      }
+    },
+    "/products/images/{id}/": {
+      "post": {
+        "tags": [
+          "Product Images"
+        ],
+        "summary": "Add Product Image",
+        "operationId": "addProductImage",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Image added"
+          }
+        }
+      }
+    },
+    "/products/categories/": {
+      "get": {
+        "tags": [
+          "Product Category"
+        ],
+        "summary": "List Product Category",
+        "operationId": "listProductCategories",
+        "responses": {
+          "200": {
+            "description": "List of categories"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product Category"
+        ],
+        "summary": "Create Product Category",
+        "operationId": "createProductCategory",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Category created"
+          }
+        }
+      }
+    },
+    "/products/categories/{id}/": {
+      "get": {
+        "tags": [
+          "Product Category"
+        ],
+        "summary": "Retrieve Product Category",
+        "operationId": "retrieveProductCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category details"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Category"
+        ],
+        "summary": "Update Product Category",
+        "operationId": "updateProductCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Category"
+        ],
+        "summary": "Delete Product Category",
+        "operationId": "deleteProductCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Category deleted"
+          }
+        }
+      }
+    },
     "/app_admin/auth/register/": {
       "post": {
         "tags": [
@@ -147,461 +751,6 @@
           }
         }
       }
-    },
-    "/stores/": {
-      "get": {
-        "tags": [
-          "Stores"
-        ],
-        "summary": "List My Stores",
-        "description": "Retrieve a paginated list of all active stores owned by the currently authenticated merchant.",
-        "operationId": "listMyStores",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved list of stores.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Store"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Token is missing or invalid."
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Stores"
-        ],
-        "summary": "Create a New Store",
-        "description": "Create a new store record. The authenticated user is automatically assigned as the owner. Requires valid country and currency codes.",
-        "operationId": "createStore",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StoreRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Store created successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Store"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Validation Error. Invalid input data (e.g., missing fields, bad format)."
-          },
-          "401": {
-            "description": "Unauthorized. User must be logged in to create a store."
-          }
-        }
-      }
-    },
-    "/stores/{id}/": {
-      "get": {
-        "tags": [
-          "Stores"
-        ],
-        "summary": "Get Store Details",
-        "description": "Retrieve detailed information for a specific store by its ID.",
-        "operationId": "retrieveStore",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "description": "The unique UUID of the store."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Store details retrieved successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Store"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. You do not have permission to view this store."
-          },
-          "404": {
-            "description": "Store not found."
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Stores"
-        ],
-        "summary": "Update Store Details",
-        "description": "Update specific fields of an existing store. Only the owner can perform this action.",
-        "operationId": "partialUpdateStore",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StoreRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Store updated successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Store"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Validation Error. Invalid data provided."
-          },
-          "403": {
-            "description": "Forbidden. You are not the owner of this store."
-          },
-          "404": {
-            "description": "Store not found."
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Stores"
-        ],
-        "summary": "Delete Store",
-        "description": "Soft delete a store. If the store has active products or history, it will be marked as inactive rather than permanently removed.",
-        "operationId": "deleteStore",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Store successfully deleted or deactivated."
-          },
-          "403": {
-            "description": "Forbidden. You do not have permission to delete this store."
-          },
-          "404": {
-            "description": "Store not found."
-          }
-        }
-      }
-    },
-    "/products/": {
-      "get": {
-        "tags": [
-          "Products"
-        ],
-        "summary": "List Products",
-        "description": "Retrieve a list of products. Can be filtered by store, category, or type.",
-        "operationId": "listProducts",
-        "parameters": [
-          {
-            "name": "store_id",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "description": "Filter products belonging to a specific store."
-          },
-          {
-            "name": "category_id",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "description": "Filter products by category."
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "Simple",
-                "Bundle"
-              ]
-            },
-            "description": "Filter by product type."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of products",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Product"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Products"
-        ],
-        "summary": "Create Product",
-        "description": "Create a new product record attached to a specific store.",
-        "operationId": "createProduct",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Product created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Validation Error (e.g., Invalid Store ID)"
-          }
-        }
-      }
-    },
-    "/products/categories/": {
-      "get": {
-        "tags": [
-          "Products"
-        ],
-        "summary": "List Categories",
-        "description": "Get all available product categories.",
-        "operationId": "listProductCategories",
-        "responses": {
-          "200": {
-            "description": "List of categories",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "is_active": {
-                        "type": "boolean"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Products"
-        ],
-        "summary": "Create Category",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "name"
-                ],
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "maxLength": 300
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Category created"
-          }
-        }
-      }
-    },
-    "/products/bundles/": {
-      "post": {
-        "tags": [
-          "Products"
-        ],
-        "summary": "Create Bundle Product",
-        "description": "Create a new bundle. Requires a list of existing Simple product IDs.",
-        "operationId": "createBundleProduct",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "store",
-                  "category",
-                  "name",
-                  "price",
-                  "products"
-                ],
-                "properties": {
-                  "store": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "category": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "price": {
-                    "type": "string",
-                    "format": "decimal"
-                  },
-                  "products": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "description": "List of Simple Product IDs to include in the bundle."
-                  },
-                  "images": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "image": {
-                          "type": "string",
-                          "format": "base64"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Bundle created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -613,6 +762,134 @@
       }
     },
     "schemas": {
+      "StoreRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "store_type",
+          "contact_phone",
+          "country",
+          "currency"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "The public name of the store.",
+            "example": "Tech Haven GH"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "A short bio or description of what the store sells.",
+            "example": "Premium electronics and accessories in Accra."
+          },
+          "store_type": {
+            "type": "string",
+            "enum": [
+              "Physical",
+              "Online",
+              "Hybrid"
+            ],
+            "description": "The operational model of the store.",
+            "example": "Physical"
+          },
+          "logo": {
+            "type": "string",
+            "format": "base64",
+            "description": "Base64 encoded image string for the store logo (Max 2MB).",
+            "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAE..."
+          },
+          "contact_email": {
+            "type": "string",
+            "format": "email",
+            "description": "Public contact email for customer inquiries.",
+            "example": "support@techhaven.com"
+          },
+          "contact_phone": {
+            "type": "string",
+            "pattern": "^\\+?[1-9]\\d{1,14}$",
+            "description": "Public contact phone number in E.164 format.",
+            "example": "+233501234567"
+          },
+          "country": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "description": "ISO 3166-1 alpha-2 country code.",
+            "example": "GH"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "pattern": "^[A-Z]{3}$",
+            "description": "ISO 4217 currency code.",
+            "example": "GHS"
+          }
+        }
+      },
+      "ProductRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "price",
+          "store",
+          "product_type"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "description": "Name of the product.",
+            "example": "Wireless Headphones"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Detailed description of the product.",
+            "example": "Premium sound quality..."
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Unit price of the product.",
+            "example": 299.99
+          },
+          "product_type": {
+            "type": "string",
+            "enum": [
+              "Simple",
+              "Bundle"
+            ],
+            "description": "Type of product. 'Bundle' products are composed of other 'Simple' products.",
+            "example": "Simple"
+          },
+          "store": {
+            "type": "string",
+            "format": "uuid",
+            "description": "UUID of the Store this product belongs to.",
+            "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+          },
+          "category": {
+            "type": "string",
+            "format": "uuid",
+            "description": "UUID of the ProductCategory.",
+            "example": "c3d4e5f6-7890-1234-5678-90abcdef1234"
+          },
+          "track_inventory": {
+            "type": "boolean",
+            "default": false
+          },
+          "is_active": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
       "AdminRegisterRequest": {
         "type": "object",
         "required": [
@@ -696,296 +973,6 @@
             "format": "password",
             "description": "The new password to set for the account",
             "example": "NewSecurePassword!23"
-          }
-        }
-      },
-      "Store": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "description": "Unique identifier for the store.",
-            "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
-          },
-          "name": {
-            "type": "string",
-            "example": "Tech Haven GH"
-          },
-          "description": {
-            "type": "string",
-            "example": "Premium electronics and accessories in Accra."
-          },
-          "store_type": {
-            "type": "string",
-            "example": "Physical"
-          },
-          "logo": {
-            "type": "string",
-            "format": "uri",
-            "description": "Public URL to the store's logo image.",
-            "example": "https://api.paymaster.com/media/stores/logos/tech-haven.png"
-          },
-          "contact_email": {
-            "type": "string",
-            "format": "email",
-            "example": "support@techhaven.com"
-          },
-          "contact_phone": {
-            "type": "string",
-            "example": "+233501234567"
-          },
-          "country": {
-            "type": "string",
-            "description": "ISO 3166-1 alpha-2 country code.",
-            "example": "GH"
-          },
-          "currency": {
-            "type": "string",
-            "description": "ISO 4217 currency code.",
-            "example": "GHS"
-          },
-          "owner_id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "description": "UUID of the merchant who owns this store.",
-            "example": "user-uuid-1234-5678"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true,
-            "example": "2024-01-01T12:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true,
-            "example": "2024-01-02T15:30:00Z"
-          }
-        }
-      },
-      "StoreRequest": {
-        "type": "object",
-        "required": [
-          "name",
-          "store_type",
-          "contact_phone",
-          "country",
-          "currency"
-        ],
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 100,
-            "description": "The public name of the store.",
-            "example": "Tech Haven GH"
-          },
-          "description": {
-            "type": "string",
-            "maxLength": 500,
-            "description": "A short bio or description of what the store sells.",
-            "example": "Premium electronics and accessories in Accra."
-          },
-          "store_type": {
-            "type": "string",
-            "enum": [
-              "Physical",
-              "Online",
-              "Hybrid"
-            ],
-            "description": "The operational model of the store.",
-            "example": "Physical"
-          },
-          "logo": {
-            "type": "string",
-            "format": "base64",
-            "description": "Base64 encoded image string for the store logo (Max 2MB).",
-            "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAE..."
-          },
-          "contact_email": {
-            "type": "string",
-            "format": "email",
-            "description": "Public contact email for customer inquiries.",
-            "example": "support@techhaven.com"
-          },
-          "contact_phone": {
-            "type": "string",
-            "pattern": "^\\+?[1-9]\\d{1,14}$",
-            "description": "Public contact phone number in E.164 format.",
-            "example": "+233501234567"
-          },
-          "country": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 2,
-            "pattern": "^[A-Z]{2}$",
-            "description": "ISO 3166-1 alpha-2 country code.",
-            "example": "GH"
-          },
-          "currency": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 3,
-            "pattern": "^[A-Z]{3}$",
-            "description": "ISO 4217 currency code.",
-            "example": "GHS"
-          }
-        }
-      },
-      "Product": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "example": "b2c3d4e5-f6a7-8901-2345-678901234567"
-          },
-          "name": {
-            "type": "string",
-            "example": "Wireless Noise-Canceling Headphones"
-          },
-          "description": {
-            "type": "string",
-            "example": "High-fidelity audio with active noise cancellation."
-          },
-          "price": {
-            "type": "number",
-            "format": "decimal",
-            "example": 299.99
-          },
-          "currency": {
-            "type": "string",
-            "description": "ISO 4217 currency code.",
-            "example": "GHS"
-          },
-          "product_type": {
-            "type": "string",
-            "enum": [
-              "Simple",
-              "Bundle"
-            ],
-            "example": "Simple"
-          },
-          "track_inventory": {
-            "type": "boolean",
-            "default": false,
-            "example": true
-          },
-          "is_active": {
-            "type": "boolean",
-            "default": true,
-            "example": true
-          },
-          "category": {
-            "type": "object",
-            "description": "The category this product belongs to.",
-            "properties": {
-              "id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "name": {
-                "type": "string",
-                "example": "Electronics"
-              }
-            }
-          },
-          "store_id": {
-            "type": "string",
-            "format": "uuid",
-            "description": "The ID of the store this product belongs to.",
-            "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
-          },
-          "bundle_items": {
-            "type": "array",
-            "description": "List of items included if this is a Bundle product.",
-            "items": {
-              "type": "object",
-              "properties": {
-                "product_id": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "quantity": {
-                  "type": "integer",
-                  "example": 1
-                }
-              }
-            }
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          }
-        }
-      },
-      "ProductRequest": {
-        "type": "object",
-        "required": [
-          "name",
-          "price",
-          "store",
-          "product_type"
-        ],
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 300,
-            "description": "Name of the product.",
-            "example": "Wireless Headphones"
-          },
-          "description": {
-            "type": "string",
-            "maxLength": 500,
-            "description": "Detailed description of the product.",
-            "example": "Premium sound quality..."
-          },
-          "price": {
-            "type": "number",
-            "minimum": 0,
-            "description": "Unit price of the product.",
-            "example": 299.99
-          },
-          "product_type": {
-            "type": "string",
-            "enum": [
-              "Simple",
-              "Bundle"
-            ],
-            "description": "Type of product. 'Bundle' products are composed of other 'Simple' products.",
-            "example": "Simple"
-          },
-          "store": {
-            "type": "string",
-            "format": "uuid",
-            "description": "UUID of the Store this product belongs to.",
-            "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
-          },
-          "category": {
-            "type": "string",
-            "format": "uuid",
-            "description": "UUID of the ProductCategory.",
-            "example": "c3d4e5f6-7890-1234-5678-90abcdef1234"
-          },
-          "track_inventory": {
-            "type": "boolean",
-            "default": false
-          },
-          "is_active": {
-            "type": "boolean",
-            "default": true
           }
         }
       }
