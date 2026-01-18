@@ -4,39 +4,51 @@ title: Product Management
 
 # Product Management
 
-Merchants can manage a diverse catalog of items across multiple stores.
-The Product API supports different product types, categorization, and inventory tracking.
+This section covers the explicit management of Simple Products, Bundles, Images, and Categories.
 
-## Overview
+## 1. Simple Products
+Standard items sold directly.
 
-The Product API allows you to:
-- **Create** products attached to specific stores.
-- **Categorize** items for better organization.
-- **Manage** inventory tracking.
-- **Bundle** multiple products into a single deal.
+| Action | Method | Endpoint | Description |
+| :--- | :--- | :--- | :--- |
+| **Create** | `POST` | `/products/simple/` | Create a new simple product. |
+| **Update** | `PUT` | `/products/simple/{id}/` | Update details of a simple product. |
 
-## Product Types
+## 2. Bundle Products
+Collections of simple products sold as one unit.
 
-The system supports two distinct types of products:
+| Action | Method | Endpoint | Description |
+| :--- | :--- | :--- | :--- |
+| **Create** | `POST` | `/products/bundle/` | Create a new bundle. |
+| **Update** | `PUT` | `/products/bundle/{id}/` | Update bundle details (price, name). |
 
-| Type | Description |
-| :--- | :--- |
-| **Simple** | A standard physical or digital item (e.g., "Wireless Mouse"). |
-| **Bundle** | A collection of Simple products sold together as a single unit (e.g., "Work From Home Kit"). |
+### Managing Bundle Content
+To change the actual products inside a bundle:
 
-## Endpoints
+* **Add Product to Bundle**: `PUT /products/bundle/{bundle_id}/items/`
+  * Body requires: `product_id` (The ID of the Simple Product to add).
+* **Delete Product from Bundle**: `DELETE /products/bundle/items/{item_id}/`
+  * Note: Use the `item_id` (the link ID), not the product ID.
 
-### List & Create Products
-<div className="api-badge get">GET</div> <div className="api-badge post">POST</div> `/products/`
+## 3. Product Images
+Images can be added to both Simple and Bundle products using the same endpoints.
 
-Retrieve a list of products. You can filter results by:
-- `store_id`: Get products for a specific store.
-- `category_id`: Get products in a specific category.
-- `type`: Filter by "Simple" or "Bundle".
+* **Add Image**: `POST /products/images/`
+  * Body requires: `product` (ID of the product) and `image` (file).
+* **Delete Image**: `DELETE /products/images/{image_id}/`
 
-### Product Categories
-<div className="api-badge get">GET</div> <div className="api-badge post">POST</div> `/products/categories/`
+## 4. General Product Operations
+Operations that apply to any product type.
 
-Manage the taxonomy of your catalog. Categories help organize products for your customers.
+* **List All**: `GET /products/`
+* **Retrieve One**: `GET /products/{id}/`
+* **Delete Product**: `DELETE /products/{id}/`
 
-> **Note on Bundles:** When creating a **Bundle** product, you must specify the `bundle_items` list, which references existing **Simple** products and their quantities.
+## 5. Product Categories
+Organize your catalog.
+
+* **List**: `GET /products/categories/`
+* **Create**: `POST /products/categories/`
+* **Retrieve**: `GET /products/categories/{id}/`
+* **Update**: `PUT /products/categories/{id}/`
+* **Delete**: `DELETE /products/categories/{id}/`
