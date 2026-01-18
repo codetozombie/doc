@@ -4,51 +4,68 @@ title: Product Management
 
 # Product Management
 
-This section covers the explicit management of Simple Products, Bundles, Images, and Categories.
+This section details how to manage your catalog. The API is divided into specific workflows for **Simple Products**, **Bundles**, **Images**, and **Categories**.
+
+---
 
 ## 1. Simple Products
-Standard items sold directly.
+Simple products are standard items (physical or digital) that are sold directly.
 
-| Action | Method | Endpoint | Description |
-| :--- | :--- | :--- | :--- |
-| **Create** | `POST` | `/products/simple/` | Create a new simple product. |
-| **Update** | `PUT` | `/products/simple/{id}/` | Update details of a simple product. |
+| Action | Method | Endpoint |
+| :--- | :--- | :--- |
+| **Create Simple Product** | <div className="api-badge post">POST</div> | `/products/simple/` |
+| **Update Simple Product** | <div className="api-badge put">PUT</div> | `/products/simple/{id}/` |
+
+> **Note:** When creating a simple product, you must link it to an existing `store` and `category`.
+
+---
 
 ## 2. Bundle Products
-Collections of simple products sold as one unit.
+Bundles are special products composed of multiple "Simple" products sold together as a single unit (e.g., a "Gift Set").
+
+| Action | Method | Endpoint |
+| :--- | :--- | :--- |
+| **Create Bundle** | <div className="api-badge post">POST</div> | `/products/bundle/` |
+| **Update Bundle** | <div className="api-badge put">PUT</div> | `/products/bundle/{id}/` |
+
+### Managing Bundle Items
+Once a bundle is created, you can modify its contents dynamically.
 
 | Action | Method | Endpoint | Description |
 | :--- | :--- | :--- | :--- |
-| **Create** | `POST` | `/products/bundle/` | Create a new bundle. |
-| **Update** | `PUT` | `/products/bundle/{id}/` | Update bundle details (price, name). |
+| **Add Product** | <div className="api-badge put">PUT</div> | `/products/bundle/{id}/items/` | Add an existing Simple Product to the bundle. |
+| **Remove Product** | <div className="api-badge delete">DEL</div> | `/products/bundle/items/{id}/` | Remove an item from the bundle. **Use the Item ID, not Product ID.** |
 
-### Managing Bundle Content
-To change the actual products inside a bundle:
-
-* **Add Product to Bundle**: `PUT /products/bundle/{bundle_id}/items/`
-  * Body requires: `product_id` (The ID of the Simple Product to add).
-* **Delete Product from Bundle**: `DELETE /products/bundle/items/{item_id}/`
-  * Note: Use the `item_id` (the link ID), not the product ID.
+---
 
 ## 3. Product Images
-Images can be added to both Simple and Bundle products using the same endpoints.
+Images are handled separately to allow for multiple images per product. These endpoints work for both Simple and Bundle products.
 
-* **Add Image**: `POST /products/images/`
-  * Body requires: `product` (ID of the product) and `image` (file).
-* **Delete Image**: `DELETE /products/images/{image_id}/`
+| Action | Method | Endpoint |
+| :--- | :--- | :--- |
+| **Add Image** | <div className="api-badge post">POST</div> | `/products/images/` |
+| **Remove Image** | <div className="api-badge delete">DEL</div> | `/products/images/{id}/` |
 
-## 4. General Product Operations
-Operations that apply to any product type.
+---
 
-* **List All**: `GET /products/`
-* **Retrieve One**: `GET /products/{id}/`
-* **Delete Product**: `DELETE /products/{id}/`
+## 4. Product Categories
+Categories allow you to organize your products.
 
-## 5. Product Categories
-Organize your catalog.
+| Action | Method | Endpoint |
+| :--- | :--- | :--- |
+| **List Categories** | <div className="api-badge get">GET</div> | `/products/categories/` |
+| **Create Category** | <div className="api-badge post">POST</div> | `/products/categories/` |
+| **Retrieve Category** | <div className="api-badge get">GET</div> | `/products/categories/{id}/` |
+| **Update Category** | <div className="api-badge put">PUT</div> | `/products/categories/{id}/` |
+| **Delete Category** | <div className="api-badge delete">DEL</div> | `/products/categories/{id}/` |
 
-* **List**: `GET /products/categories/`
-* **Create**: `POST /products/categories/`
-* **Retrieve**: `GET /products/categories/{id}/`
-* **Update**: `PUT /products/categories/{id}/`
-* **Delete**: `DELETE /products/categories/{id}/`
+---
+
+## 5. General Operations
+These endpoints apply to all products, regardless of type.
+
+| Action | Method | Endpoint | Description |
+| :--- | :--- | :--- | :--- |
+| **List All Products** | <div className="api-badge get">GET</div> | `/products/` | Retrieve a filtered list (by store, category, or search). |
+| **Retrieve Product** | <div className="api-badge get">GET</div> | `/products/{id}/` | Get details for any product. |
+| **Delete Product** | <div className="api-badge delete">DEL</div> | `/products/{id}/` | Soft delete a product. |

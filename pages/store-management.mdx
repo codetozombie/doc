@@ -4,12 +4,24 @@ title: Store Management
 
 # Store Management
 
-Manage your merchant stores.
+The Store API allows merchants to manage their physical or digital storefronts. A merchant can own multiple stores, each with its own currency, location, and branding.
 
-| Action | Method | Endpoint |
-| :--- | :--- | :--- |
-| **List Stores** | `GET` | `/stores/` |
-| **Create Store** | `POST` | `/stores/` |
-| **Retrieve Store** | `GET` | `/stores/{id}/` |
-| **Update Store** | `PATCH` | `/stores/{id}/` |
-| **Delete Store** | `DELETE` | `/stores/{id}/` |
+## Endpoints
+
+| Action | Method | Endpoint | Description |
+| :--- | :--- | :--- | :--- |
+| **List Stores** | <div className="api-badge get">GET</div> | `/stores/` | Retrieve a list of all stores owned by the authenticated user. |
+| **Create Store** | <div className="api-badge post">POST</div> | `/stores/` | Create a new store. Requires a unique name and valid currency code. |
+| **Retrieve Store** | <div className="api-badge get">GET</div> | `/stores/{id}/` | Get detailed information about a specific store. |
+| **Update Store** | <div className="api-badge put">PUT</div> | `/stores/{id}/` | Update store details (e.g., description, logo, contact info). |
+| **Delete Store** | <div className="api-badge delete">DEL</div> | `/stores/{id}/` | Soft delete a store. |
+
+### Data Model
+
+A Store object typically contains:
+- **Name**: Public display name.
+- **Currency**: ISO code (e.g., `GHS`, `USD`) used for all products in this store.
+- **Store Type**: `Physical`, `Online`, or `Hybrid`.
+- **Contact Info**: Phone and Email for customer support.
+
+---
