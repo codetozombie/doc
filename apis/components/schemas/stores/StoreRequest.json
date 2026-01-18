@@ -1,65 +1,22 @@
 {
   "type": "object",
-  "required": [
-    "name",
-    "store_type",
-    "contact_phone",
-    "country",
-    "currency"
-  ],
+  "required": ["name", "store_type", "contact_phone", "country", "currency"],
   "properties": {
-    "name": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 100,
-      "description": "The public name of the store.",
-      "example": "Tech Haven GH"
+    "name": { "type": "string", "maxLength": 300 },
+    "description": { "type": "string", "maxLength": 500 },
+    "store_type": { 
+      "type": "string", 
+      "enum": ["Physical", "Online"] 
     },
-    "description": {
-      "type": "string",
-      "maxLength": 500,
-      "description": "A short bio or description of what the store sells.",
-      "example": "Premium electronics and accessories in Accra."
+    "logo": { 
+      "type": "string", 
+      "format": "base64", 
+      "description": "Base64 encoded image string",
+      "nullable": true
     },
-    "store_type": {
-      "type": "string",
-      "enum": ["Physical", "Online", "Hybrid"],
-      "description": "The operational model of the store.",
-      "example": "Physical"
-    },
-    "logo": {
-      "type": "string",
-      "format": "base64",
-      "description": "Base64 encoded image string for the store logo (Max 2MB).",
-      "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAE..."
-    },
-    "contact_email": {
-      "type": "string",
-      "format": "email",
-      "description": "Public contact email for customer inquiries.",
-      "example": "support@techhaven.com"
-    },
-    "contact_phone": {
-      "type": "string",
-      "pattern": "^\\+?[1-9]\\d{1,14}$",
-      "description": "Public contact phone number in E.164 format.",
-      "example": "+233501234567"
-    },
-    "country": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 2,
-      "pattern": "^[A-Z]{2}$",
-      "description": "ISO 3166-1 alpha-2 country code.",
-      "example": "GH"
-    },
-    "currency": {
-      "type": "string",
-      "minLength": 3,
-      "maxLength": 3,
-      "pattern": "^[A-Z]{3}$",
-      "description": "ISO 4217 currency code.",
-      "example": "GHS"
-    }
+    "contact_email": { "type": "string", "format": "email" },
+    "contact_phone": { "type": "string" },
+    "country": { "type": "string", "minLength": 2, "maxLength": 2 },
+    "currency": { "type": "string", "minLength": 3, "maxLength": 3 }
   }
 }

@@ -1,79 +1,52 @@
 {
   "type": "object",
   "properties": {
-    "id": {
-      "type": "string",
-      "format": "uuid",
-      "readOnly": true,
-      "example": "b2c3d4e5-f6a7-8901-2345-678901234567"
+    "id": { "type": "string", "format": "uuid", "readOnly": true },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "price": { "type": "string", "format": "decimal", "example": "150.00" },
+    "product_type": { 
+      "type": "string", 
+      "enum": ["Simple", "Bundle"] 
     },
-    "name": {
-      "type": "string",
-      "example": "Wireless Noise-Canceling Headphones"
-    },
-    "description": {
-      "type": "string",
-      "example": "High-fidelity audio with active noise cancellation."
-    },
-    "price": {
-      "type": "number",
-      "format": "decimal",
-      "example": 299.99
-    },
-    "currency": {
-      "type": "string",
-      "description": "ISO 4217 currency code.",
-      "example": "GHS"
-    },
-    "product_type": {
-      "type": "string",
-      "enum": ["Simple", "Bundle"],
-      "example": "Simple"
-    },
-    "track_inventory": {
-      "type": "boolean",
-      "default": false,
-      "example": true
-    },
-    "is_active": {
-      "type": "boolean",
-      "default": true,
-      "example": true
-    },
-    "category": {
+    "track_inventory": { "type": "boolean" },
+    "category": { 
       "type": "object",
-      "description": "The category this product belongs to.",
       "properties": {
         "id": { "type": "string", "format": "uuid" },
-        "name": { "type": "string", "example": "Electronics" }
+        "name": { "type": "string" }
       }
     },
-    "store_id": {
-      "type": "string",
-      "format": "uuid",
-      "description": "The ID of the store this product belongs to.",
-      "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    "store": { 
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "name": { "type": "string" }
+      }
     },
-    "bundle_items": {
+    "images": {
       "type": "array",
-      "description": "List of items included if this is a Bundle product.",
       "items": {
         "type": "object",
         "properties": {
-          "product_id": { "type": "string", "format": "uuid" },
-          "quantity": { "type": "integer", "example": 1 }
+          "id": { "type": "string", "format": "uuid" },
+          "image": { "type": "string", "format": "uri" }
         }
       }
     },
-    "created_at": {
-      "type": "string",
-      "format": "date-time",
-      "readOnly": true
+    "bundle_items": {
+      "type": "array",
+      "description": "Only populated if product_type is Bundle",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid", "description": "The Bundle Item ID" },
+          "product_id": { "type": "string", "format": "uuid", "description": "The Simple Product ID" },
+          "product": { "type": "string", "description": "Name of the simple product" }
+        }
+      }
     },
-    "updated_at": {
-      "type": "string",
-      "format": "date-time",
-      "readOnly": true
-    }
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
   }
 }
