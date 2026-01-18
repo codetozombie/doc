@@ -1,0 +1,36 @@
+---
+title: Admin Authentication
+---
+
+# Admin Authentication
+
+The PayMaster App Admin module utilizes a secure invitation-based workflow for managing administrator accounts.
+
+## Workflow Overview
+
+1.  **Invitation**: A Super Admin calls the `register` endpoint to invite a new admin. The system sends an email with an activation link.
+2.  **Activation**: The new admin uses the token from the email to set their password via the `activate` endpoint.
+3.  **Login**: Once activated, the admin can log in using their credentials to receive a JWT access token.
+
+## Endpoints
+
+### Register Admin
+<div className="api-badge post">POST</div> `/app_admin/auth/register/`
+
+Used by existing admins to invite new staff. Requires a valid Bearer token with appropriate permissions.
+
+### Activate Account
+<div className="api-badge post">POST</div> `/app_admin/auth/activate/`
+
+Public endpoint used by the new admin to set their password. This completes the registration process.
+
+### Login
+<div className="api-badge post">POST</div> `/app_admin/auth/login/`
+
+Standard authentication endpoint for admins.
+
+---
+
+## Security Note
+
+All admin endpoints require HTTPS. The registration endpoint is protected and requires `superuser` or `manager` level permissions.

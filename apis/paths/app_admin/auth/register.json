@@ -5,7 +5,9 @@
     "description": "Creates a new admin user and sends an invitation email. Requires JWT Authentication and Admin permissions.",
     "operationId": "registerAdmin",
     "security": [
-      { "bearerAuth": [] }
+      {
+        "bearerAuth": []
+      }
     ],
     "requestBody": {
       "required": true,

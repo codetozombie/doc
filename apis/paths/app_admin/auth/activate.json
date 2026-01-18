@@ -5,7 +5,9 @@
     "description": "Sets the password for a newly invited admin account. Requires the Invite Token.",
     "operationId": "activateAdmin",
     "security": [
-      { "bearerAuth": [] }
+      {
+        "bearerAuth": []
+      }
     ],
     "requestBody": {
       "required": true,

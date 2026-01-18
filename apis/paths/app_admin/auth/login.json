@@ -22,10 +22,20 @@
             "schema": {
               "type": "object",
               "properties": {
-                "status": { "type": "string" },
-                "message": { "type": "string" },
-                "type": { "type": "string", "description": "Action type (e.g. EMAIL_VERIFICATION_REQUIRED)" },
-                "token": { "type": "string", "description": "OTP or Temp Token" }
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Action type (e.g. EMAIL_VERIFICATION_REQUIRED)"
+                },
+                "token": {
+                  "type": "string",
+                  "description": "OTP or Temp Token"
+                }
               }
             }
           }

@@ -5,9 +5,6 @@
     "version": "1.0.0",
     "description": "API documentation for PayMaster Africa."
   },
-  "servers": [
-    { "url": "http://localhost:8000/api/v1", "description": "Local Dev" }
-  ],
   "paths": {
     "/app_admin/auth/register/": {
       "$ref": "./paths/app_admin/auth/register.json"

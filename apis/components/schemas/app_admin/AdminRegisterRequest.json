@@ -1,17 +1,42 @@
 {
   "type": "object",
-  "required": ["username", "first_name", "last_name", "email", "profile"],
+  "required": [
+    "username",
+    "first_name",
+    "last_name",
+    "email",
+    "profile"
+  ],
   "properties": {
-    "username": { "type": "string", "example": "jdoe_admin" },
-    "first_name": { "type": "string", "example": "John" },
-    "last_name": { "type": "string", "example": "Doe" },
-    "email": { "type": "string", "format": "email", "example": "john@paymaster.com" },
+    "username": {
+      "type": "string",
+      "example": "jdoe_admin"
+    },
+    "first_name": {
+      "type": "string",
+      "example": "John"
+    },
+    "last_name": {
+      "type": "string",
+      "example": "Doe"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "example": "john@paymaster.com"
+    },
     "profile": {
       "type": "object",
       "description": "Admin Profile details",
       "properties": {
-        "role": { "type": "string", "example": "supervisor" },
-        "department": { "type": "string", "example": "finance" }
+        "role": {
+          "type": "string",
+          "example": "supervisor"
+        },
+        "department": {
+          "type": "string",
+          "example": "finance"
+        }
       }
     }
   }
