@@ -1,0 +1,43 @@
+{
+  "post": {
+    "tags": ["App Admin Auth"],
+    "summary": "Register New Admin",
+    "description": "Creates a new admin user and sends an invitation email. Requires JWT Authentication and Admin permissions.",
+    "operationId": "registerAdmin",
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../../../components/schemas/app_admin/AdminRegisterRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Admin created successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../../components/schemas/app_admin/GenericResponse.json"
+            },
+            "example": {
+              "status": "Ok",
+              "message": "Invite link sent to the email"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Validation Error (e.g. Email already exists)"
+      },
+      "401": {
+        "description": "Unauthorized"
+      }
+    }
+  }
+}

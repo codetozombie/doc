@@ -1,0 +1,39 @@
+{
+  "post": {
+    "tags": ["App Admin Auth"],
+    "summary": "Admin Login",
+    "description": "Authenticates an admin. Returns a token or an OTP requirement message depending on account status.",
+    "operationId": "loginAdmin",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../../../components/schemas/app_admin/AdminLoginRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Login successful or Next Step Required",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "string" },
+                "message": { "type": "string" },
+                "type": { "type": "string", "description": "Action type (e.g. EMAIL_VERIFICATION_REQUIRED)" },
+                "token": { "type": "string", "description": "OTP or Temp Token" }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Invalid Credentials"
+      }
+    }
+  }
+}

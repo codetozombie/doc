@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": ["password"],
+  "properties": {
+    "password": {
+      "type": "string",
+      "format": "password",
+      "description": "The new password to set for the account",
+      "example": "NewSecurePassword!23"
+    }
+  }
+}

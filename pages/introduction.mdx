@@ -1,16 +1,59 @@
+# Introduction to Paymaster Africa API
+
+Welcome to the **Paymaster Africa API** documentation.
+
+Paymaster Africa is revolutionizing digital payments across the continent by leveraging the power and ubiquity of **WhatsApp**. Our API allows businesses, developers, and platforms to integrate seamless mobile money collections and disbursements directly into their applications, all without requiring physical POS hardware or forcing customers to download new apps.
+
+## What is Paymaster Africa?
+
+Paymaster Africa is a **WhatsApp-first payment gateway** that bridges the gap between merchants and mobile money wallets (MoMo). By utilizing familiar QR code scanning and WhatsApp chat flows, we remove friction from the payment process.
+
+For developers, the Paymaster Africa API provides the programmatic tools needed to generate dynamic payment requests, manage transaction histories, and receive real-time confirmations for payments made via **MTN Mobile Money**, **Telecel Cash**, and **AirtelTigo Money**.
+
+## Why Build with Paymaster?
+
+Integrating with Paymaster Africa offers distinct advantages for businesses operating in mobile-first markets like Ghana:
+
+* **No Hardware Required:** Eliminate the cost and maintenance of POS machines. Your application or simple QR codes become the terminal.
+* **Zero App Friction:** Customers pay using WhatsApp, an app they already have and trust. No new downloads or registrations are required for the payer.
+* **Multi-Network Support:** Accept payments from all major mobile money networks (MTN, Telecel, AirtelTigo) through a single integration.
+* **Secure & Compliant:** All transactions are PIN-authorized by the user and fully compliant with mobile money regulations.
+
+## Core Features
+
+Our API enables a comprehensive suite of financial operations suitable for retail shops, pharmacies, restaurants, delivery services, and e-commerce platforms.
+
+### 1. Dynamic QR Code Generation
+Programmatically generate unique QR codes for specific transactions. When a customer scans the code, it automatically opens a WhatsApp chat pre-filled with the payment details, allowing them to complete the transaction in seconds.
+
+### 2. WhatsApp Checkout Flow
+Initiate payment requests that trigger a WhatsApp interaction for the user. This "Scan. Chat. Get Paid." model ensures high conversion rates by meeting customers where they are.
+
+### 3. Real-Time Webhooks
+Receive instant notifications (webhooks) on your server the moment a payment is confirmed, failed, or pending. This allows you to release goods or update order statuses in real-time without polling.
+
+### 4. Account Management
+* **Check Balances:** Retrieve current merchant account balances programmatically.
+* **Transaction History:** Query past transactions for reconciliation and accounting.
+* **Bill Payments:** Facilitate utility and service payments directly through the API.
+
+## Use Cases
+
+The Paymaster Africa API is designed to support a wide range of business models:
+
+* **In-Store Retail:** Display a dynamic QR code on a tablet or printed receipt for instant counter payments.
+* **E-Commerce:** innovative "Checkout with WhatsApp" button that redirects mobile users to their WhatsApp app to finalize payment.
+* **Delivery Services:** Enable riders to accept digital payments upon delivery without carrying cash or card readers.
+* **Freelancers & Vendors:** Generate simple payment links or codes to send to clients via social media or chat apps.
+
+## Getting Started
+
+To begin integrating with Paymaster Africa:
+
+1.  **Create a Merchant Account:** Sign up at [Paymaster Africa](https://paymasterafrica.com/) to get your merchant credentials.
+2.  **Obtain API Keys:** Navigate to your dashboard to generate your Sandbox and Production API keys.
+3.  **Explore the Reference:** Review the endpoint definitions to start building your integration.
+
 ---
-title: Welcome to Zudoku
----
 
-Thanks for choosing to use Zudoku to power your API documentation!
-
-## Edit this page
-
-To edit this page, open the `pages/introduction.mdx` file.
-
-## Configuration
-
-You can find the full configuration for your Zudoku site in the `zudoku.config.tsx` file.
-
-For further information on how to customize your site, check out the
-[Zudoku documentation](https://zudoku.dev/docs).
+**Ready to revolutionize payments?** Dive into the [Quick Start Guide](/docs/quickstart) or explore the [API Reference](/docs/api-reference) to make your first request.

@@ -4,12 +4,14 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "zudoku dev",
-    "build": "zudoku build",
+    "bundle": "redocly bundle apis/openapi.json -o apis/openapi.bundled.json",
+    "dev": "npm run bundle && zudoku dev",
+    "build": "npm run bundle && zudoku build",
     "preview": "zudoku preview",
     "lint": "eslint"
   },
   "dependencies": {
+    "@redocly/cli": "^2.14.4",
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0",
     "zudoku": "0.66.5"
@@ -18,9 +20,9 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5",
-    "eslint": "^8",
     "@typescript-eslint/eslint-plugin": "^8",
-    "@typescript-eslint/parser": "^8"
+    "@typescript-eslint/parser": "^8",
+    "eslint": "^8",
+    "typescript": "^5"
   }
 }

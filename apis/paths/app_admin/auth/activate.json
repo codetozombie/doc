@@ -1,0 +1,40 @@
+{
+  "post": {
+    "tags": ["App Admin Auth"],
+    "summary": "Activate Admin Account",
+    "description": "Sets the password for a newly invited admin account. Requires the Invite Token.",
+    "operationId": "activateAdmin",
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../../../components/schemas/app_admin/AdminActivationRequest.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Activation Successful",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../../components/schemas/app_admin/GenericResponse.json"
+            },
+            "example": {
+              "status": "ok",
+              "message": "Admin account activation successful"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Account already active or invalid token"
+      }
+    }
+  }
+}

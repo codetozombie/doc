@@ -1,0 +1,255 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "PayMaster API",
+    "version": "1.0.0",
+    "description": "API documentation for PayMaster Africa."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api/v1",
+      "description": "Local Dev"
+    }
+  ],
+  "paths": {
+    "/app_admin/auth/register/": {
+      "post": {
+        "tags": [
+          "App Admin Auth"
+        ],
+        "summary": "Register New Admin",
+        "description": "Creates a new admin user and sends an invitation email. Requires JWT Authentication and Admin permissions.",
+        "operationId": "registerAdmin",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Admin created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericResponse"
+                },
+                "example": {
+                  "status": "Ok",
+                  "message": "Invite link sent to the email"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error (e.g. Email already exists)"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/app_admin/auth/login/": {
+      "post": {
+        "tags": [
+          "App Admin Auth"
+        ],
+        "summary": "Admin Login",
+        "description": "Authenticates an admin. Returns a token or an OTP requirement message depending on account status.",
+        "operationId": "loginAdmin",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminLoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful or Next Step Required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Action type (e.g. EMAIL_VERIFICATION_REQUIRED)"
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "OTP or Temp Token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Credentials"
+          }
+        }
+      }
+    },
+    "/app_admin/auth/activate/": {
+      "post": {
+        "tags": [
+          "App Admin Auth"
+        ],
+        "summary": "Activate Admin Account",
+        "description": "Sets the password for a newly invited admin account. Requires the Invite Token.",
+        "operationId": "activateAdmin",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminActivationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Activation Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericResponse"
+                },
+                "example": {
+                  "status": "ok",
+                  "message": "Admin account activation successful"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Account already active or invalid token"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "AdminRegisterRequest": {
+        "type": "object",
+        "required": [
+          "username",
+          "first_name",
+          "last_name",
+          "email",
+          "profile"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "jdoe_admin"
+          },
+          "first_name": {
+            "type": "string",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "john@paymaster.com"
+          },
+          "profile": {
+            "type": "object",
+            "description": "Admin Profile details",
+            "properties": {
+              "role": {
+                "type": "string",
+                "example": "supervisor"
+              },
+              "department": {
+                "type": "string",
+                "example": "finance"
+              }
+            }
+          }
+        }
+      },
+      "GenericResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "AdminLoginRequest": {
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "superadmin"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "example": "secretPassword123"
+          }
+        }
+      },
+      "AdminActivationRequest": {
+        "type": "object",
+        "required": [
+          "password"
+        ],
+        "properties": {
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "The new password to set for the account",
+            "example": "NewSecurePassword!23"
+          }
+        }
+      }
+    }
+  }
+}
