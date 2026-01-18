@@ -1,0 +1,34 @@
+---
+title: Order Management
+---
+
+# Order Management
+
+Merchants can create orders and send payment links directly to customers via WhatsApp. Customers can view and cancel their pending orders.
+
+## Order Workflow
+1. **Create**: Merchant creates an order with products and a customer WhatsApp number.
+2. **Notify**: System generates a payment link and sends it to the customer.
+3. **Status**: The order starts as `Pending`. It updates to `Paid` upon successful payment, or `Cancelled` if revoked.
+
+## Endpoints
+
+| Action | Method | Endpoint | Description |
+| :--- | :--- | :--- | :--- |
+| **List Orders** | <div className="api-badge get">GET</div> | `/orders/` | List all orders. Filter by `status`. |
+| **Create Order** | <div className="api-badge post">POST</div> | `/orders/` | Create a new order and trigger WhatsApp notification. |
+| **Retrieve Order** | <div className="api-badge get">GET</div> | `/orders/{id}/` | Get details of a specific order. |
+| **Update Order** | <div className="api-badge put">PUT</div> | `/orders/{id}/` | Modify items or contact details. Resends notification. |
+| **Cancel Order** | <div className="api-badge put">PUT</div> | `/orders/{id}/cancel/` | Mark a pending order as Cancelled. |
+| **Resend Order** | <div className="api-badge get">GET</div> | `/orders/{id}/resend/` | Manually resend the WhatsApp payment notification. |
+
+### Order Object
+The Order object contains the financial and status details of the transaction.
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `reference` | String | Unique 10-character code for the order. |
+| `amount` | Decimal | Total cost calculated from items. |
+| `status` | Enum | `Pending`, `Paid`, `Cancelled`, `Expired`. |
+| `payment_link` | URL | The link sent to the customer for payment. |
+| `items` | Array | List of products and quantities included. |

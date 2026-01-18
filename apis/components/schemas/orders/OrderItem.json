@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "product": { "$ref": "../products/Product.json" },
+    "quantity": { "type": "integer" },
+    "rate": { "type": "string", "format": "decimal", "description": "Price at time of order" }
+  }
+}

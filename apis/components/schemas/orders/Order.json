@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "reference": { "type": "string", "example": "a1B2c3D4e5" },
+    "description": { "type": "string" },
+    "amount": { "type": "string", "format": "decimal", "example": "150.00" },
+    "status": { 
+      "type": "string", 
+      "enum": ["Pending", "Paid", "Cancelled", "Expired"] 
+    },
+    "payment_link": { "type": "string", "format": "uri" },
+    "whatsapp_number": { "type": "string" },
+    "merchant": { "type": "string", "format": "uuid", "description": "Merchant User ID" },
+    "customer": { "type": "string", "format": "uuid", "nullable": true, "description": "Customer User ID" },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "./OrderItem.json" }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "put": {
+    "tags": ["Orders"],
+    "summary": "Cancel Order",
+    "description": "Mark a Pending order as Cancelled. Available to Merchants and Customers.",
+    "operationId": "cancelOrder",
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
+    "responses": {
+      "200": {
+        "description": "Order cancelled successfully",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "../../components/schemas/orders/Order.json" }
+          }
+        }
+      }
+    }
+  }
+}
