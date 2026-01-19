@@ -4,6 +4,17 @@
     "summary": "Remove Product Image",
     "operationId": "removeProductImage",
     "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
-    "responses": { "204": { "description": "Image removed" } }
+        "responses": {
+      "204": {
+        "description": "Item removed",
+        "content": {
+          "application/json": {
+            "example": {
+              "status": "Ok"
+            }
+          }
+        }
+      }
+    }
   }
 }

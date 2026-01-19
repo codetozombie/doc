@@ -16,6 +16,17 @@
         }
       }
     },
-    "responses": { "201": { "description": "Image added" } }
+        "responses": {
+      "201": {
+        "description": "Image added",
+        "content": {
+          "application/json": {
+            "example": {
+              "status": "Ok"
+            }
+          }
+        }
+      }
+    }
   }
 }
