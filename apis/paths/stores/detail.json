@@ -4,7 +4,28 @@
     "summary": "Retrieve Store",
     "operationId": "retrieveStore",
     "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
-    "responses": { "200": { "description": "Store details" } }
+        "responses": {
+      "200": {
+        "description": "Retrieve Store",
+        "content": {
+          "application/json": {
+            "example": {
+    "id": "2cbd0997-6fd8-4e53-a0ab-aee0f5e9dc33",
+    "logo": null,
+    "created_at": "2025-10-29T15:21:34.792333Z",
+    "updated_at": "2025-10-29T15:21:34.792348Z",
+    "country": "Ghana",
+    "name": "Stark's Ultramordern Store",
+    "description": "Nice store",
+    "store_type": "Online",
+    "contact_email": "email@default.com",
+    "contact_phone": "+233273653783"
+}
+          }
+        }
+      }
+      
+    }
   },
   "put": {
     "tags": ["Stores"],
@@ -14,7 +35,28 @@
     "requestBody": {
       "content": { "application/json": { "schema": { "$ref": "../../components/schemas/stores/StoreRequest.json" } } }
     },
-    "responses": { "200": { "description": "Store updated" } }
+        "responses": {
+      "200": {
+        "description": "Update Store",
+        "content": {
+          "application/json": {
+            "example": {
+    "id": "2cbd0997-6fd8-4e53-a0ab-aee0f5e9dc33",
+    "logo": null,
+    "created_at": "2025-10-29T15:21:34.792333Z",
+    "updated_at": "2025-10-29T15:23:16.050655Z",
+    "country": "Ghana",
+    "name": "Updated Store",
+    "description": "Nice store",
+    "store_type": "Online",
+    "contact_email": "email@default.com",
+    "contact_phone": "+233556453635"
+}
+          }
+        }
+      }
+      
+    }
   },
   "delete": {
     "tags": ["Stores"],

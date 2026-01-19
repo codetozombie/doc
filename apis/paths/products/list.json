@@ -7,6 +7,66 @@
       { "name": "store", "in": "query", "schema": { "type": "string", "format": "uuid" } },
       { "name": "category", "in": "query", "schema": { "type": "string", "format": "uuid" } }
     ],
-    "responses": { "200": { "description": "List of products" } }
+        "responses": {
+      "200": {
+    "pagination": {
+        "currentPage": 1,
+        "next": null,
+        "prev": null
+    },
+    "results": [
+        {
+            "id": "9de475d0-c383-4b56-88af-83091aa2cd2a",
+            "images": [
+                {
+                    "id": "308f189a-a502-4861-9aef-e890ce1c1338",
+                    "image": "http://localhost:8000/media/stores/products/4f9cd17e-f04.png"
+                },
+                {
+                    "id": "c26c38d4-4d4b-47a0-ab42-8fa52683bd47",
+                    "image": "http://localhost:8000/media/stores/products/4e86e8b3-f3a.png"
+                }
+            ],
+            "created_at": "2025-10-29T16:54:24.983062Z",
+            "updated_at": "2025-10-29T16:54:24.983082Z",
+            "currency": "GHS",
+            "name": "Simple Product With Images",
+            "description": "",
+            "price": "40.00",
+            "product_type": "Simple",
+            "track_inventory": false,
+            "category": "f03c4f78-e9c2-45ef-95e0-c7552da4aa57",
+            "store": "bdf629ee-a380-4d07-b469-184bd3e9b292"
+        },
+        {
+            "id": "aa34aebf-d8e0-4279-9744-93e16c72fed0",
+            "images": [],
+            "created_at": "2025-10-29T16:50:49.246382Z",
+            "updated_at": "2025-10-29T16:50:49.246398Z",
+            "currency": "GHS",
+            "name": "Simple Product",
+            "description": "",
+            "price": "20.00",
+            "product_type": "Simple",
+            "track_inventory": false,
+            "category": "c30a9855-ca29-496a-ab31-2226742b679a",
+            "store": "d6eea8b5-fff4-4a22-b106-1c7c8d1a1a77"
+        }
+    ]
+},
+      "400": {
+        "description": "Invalid request",
+        "content": {
+          "application/json": {
+            "example": {
+              "errors": {
+                "detail": "A record with this value already exists."
+              },
+              "status_code": 400
+            }
+          }
+        }
+      }
+    }
   }
 }

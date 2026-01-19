@@ -4,13 +4,44 @@
     "summary": "Retrieve Product",
     "operationId": "retrieveProduct",
     "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
-    "responses": { "200": { "description": "Product details" } }
+        "responses": {
+      "200": {
+        "description": "Item added",
+        "content": {
+          "application/json": {
+            "example": {
+    "id": "2cbd0997-6fd8-4e53-a0ab-aee0f5e9dc33",
+    "logo": null,
+    "created_at": "2025-10-29T15:21:34.792333Z",
+    "updated_at": "2025-10-29T15:21:34.792348Z",
+    "country": "Ghana",
+    "name": "Stark's Ultramordern Store",
+    "description": "Nice store",
+    "store_type": "Online",
+    "contact_email": "email@default.com",
+    "contact_phone": "+233273653783"
+}
+          }
+        }
+      }
+    }
   },
   "delete": {
     "tags": ["Products"],
     "summary": "Delete Product",
     "operationId": "deleteProduct",
     "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }],
-    "responses": { "204": { "description": "Product deleted" } }
+        "responses": {
+      "204": {
+        "description": "Product Deleted",
+        "content": {
+          "application/json": {
+            "example": {
+              "status": "Ok"
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -3,7 +3,44 @@
     "tags": ["Stores"],
     "summary": "List Stores",
     "operationId": "listStores",
-    "responses": { "200": { "description": "List of stores" } }
+    "responses": {
+      "200": {
+        "description": "List of Stores",
+        "content": {
+          "application/json": {
+            "example": [
+    {
+        "id": "d6eea8b5-fff4-4a22-b106-1c7c8d1a1a77",
+        "logo": null,
+        "created_at": "2025-10-29T15:20:41.053124Z",
+        "updated_at": "2025-10-29T15:20:41.053149Z",
+        "country": "Ghana",
+        "currency": "GHS",
+        "name": "Stark's Premium Store",
+        "description": "Nice store",
+        "store_type": "Physical",
+        "contact_email": "email@default.com",
+        "contact_phone": "+233273653783"
+    },
+    {
+        "id": "2cbd0997-6fd8-4e53-a0ab-aee0f5e9dc33",
+        "logo": null,
+        "created_at": "2025-10-29T15:21:34.792333Z",
+        "updated_at": "2025-10-29T15:23:53.136590Z",
+        "country": "Ghana",
+        "currency": "GHS",
+        "name": "Updated Store",
+        "description": "Nice store",
+        "store_type": "Online",
+        "contact_email": "email@default.com",
+        "contact_phone": "+233556453635"
+    }
+]
+          }
+        }
+      }
+      
+    }
   },
   "post": {
     "tags": ["Stores"],
