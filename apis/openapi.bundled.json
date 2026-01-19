@@ -351,9 +351,12 @@
         "tags": [
           "Bundle Products"
         ],
-        "summary": "Create Bundle Product",
+        "summary": "Create a bundle product",
+        "description": "Creates a new bundle product that combines multiple individual products at a single price point.",
         "operationId": "createBundleProduct",
         "requestBody": {
+          "required": true,
+          "description": "Bundle product details",
           "content": {
             "application/json": {
               "schema": {
@@ -368,24 +371,65 @@
                 "properties": {
                   "store": {
                     "type": "string",
-                    "format": "uuid"
+                    "format": "uuid",
+                    "description": "UUID of the store this bundle belongs to"
                   },
                   "category": {
                     "type": "string",
-                    "format": "uuid"
+                    "format": "uuid",
+                    "description": "UUID of the product category"
                   },
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Display name of the bundle product",
+                    "example": "Summer Essentials Bundle"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Detailed description of the bundle (optional)",
+                    "example": "Complete summer kit with all essentials"
                   },
                   "price": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Bundle price in the store's currency",
+                    "example": "40.00"
                   },
                   "products": {
                     "type": "array",
+                    "description": "Array of product UUIDs to include in the bundle",
                     "items": {
                       "type": "string",
                       "format": "uuid"
-                    }
+                    },
+                    "minItems": 1
+                  }
+                }
+              },
+              "examples": {
+                "basicBundle": {
+                  "summary": "Simple bundle with one product",
+                  "value": {
+                    "store": "d6eea8b5-fff4-4a22-b106-1c7c8d1a1a77",
+                    "category": "f03c4f78-e9c2-45ef-95e0-c7552da4aa57",
+                    "name": "Starter Bundle",
+                    "price": "40.00",
+                    "products": [
+                      "b48a8d18-d8f5-4722-94a8-01e6255a1d3a"
+                    ]
+                  }
+                },
+                "multiProductBundle": {
+                  "summary": "Bundle with multiple products and description",
+                  "value": {
+                    "store": "bdf629ee-a380-4d07-b469-184bd3e9b292",
+                    "category": "c30a9855-ca29-496a-ab31-2226742b679a",
+                    "name": "Complete Package",
+                    "description": "Everything you need to get started",
+                    "price": "70.00",
+                    "products": [
+                      "4c04a0d1-b2cb-499f-b3b8-5959ae1bbdd3",
+                      "98692169-ff73-4645-9ec9-9b9de3312f77"
+                    ]
                   }
                 }
               }
@@ -394,66 +438,164 @@
         },
         "responses": {
           "201": {
-            "description": "Item added",
+            "description": "Bundle product successfully created",
             "content": {
               "application/json": {
-                "example": [
-                  {
-                    "id": "b4ba352e-f9ce-4e54-aa4a-2d5653fc8b9d",
-                    "images": [],
-                    "created_at": "2025-10-29T17:11:18.367444Z",
-                    "updated_at": "2025-10-29T17:11:18.367482Z",
-                    "currency": "GHS",
-                    "name": "Bundled Products",
-                    "description": "",
-                    "price": "40.00",
-                    "product_type": "Bundle",
-                    "track_inventory": false,
-                    "category": "f03c4f78-e9c2-45ef-95e0-c7552da4aa57",
-                    "store": "d6eea8b5-fff4-4a22-b106-1c7c8d1a1a77",
-                    "bundle_items": [
-                      {
-                        "id": "b48a8d18-d8f5-4722-94a8-01e6255a1d3a",
-                        "product": "Updated Simple Product With Images"
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Unique identifier for the bundle product"
+                    },
+                    "images": {
+                      "type": "array",
+                      "description": "Product images",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "image": {
+                            "type": "string",
+                            "description": "Image URL path"
+                          }
+                        }
                       }
-                    ]
-                  },
-                  {
-                    "id": "c11272d1-cd98-4085-94ce-ed62a1c94587",
-                    "images": [
-                      {
-                        "id": "89775a5e-1bd0-4b53-acda-850a802ec9a9",
-                        "image": "/media/stores/products/47dbfc06-a99.png"
-                      },
-                      {
-                        "id": "a5a1f44d-2243-4f5e-830c-860fbb844183",
-                        "image": "/media/stores/products/a3e4e120-b18.png"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "currency": {
+                      "type": "string",
+                      "description": "Currency code",
+                      "example": "GHS"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "string"
+                    },
+                    "product_type": {
+                      "type": "string",
+                      "enum": [
+                        "Bundle"
+                      ]
+                    },
+                    "track_inventory": {
+                      "type": "boolean"
+                    },
+                    "category": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "store": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "bundle_items": {
+                      "type": "array",
+                      "description": "Products included in this bundle",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "product": {
+                            "type": "string",
+                            "description": "Product name"
+                          }
+                        }
                       }
-                    ],
-                    "created_at": "2025-10-29T17:13:33.508741Z",
-                    "updated_at": "2025-10-29T17:13:33.508752Z",
-                    "currency": "GHS",
-                    "name": "Bundled Products With Images",
-                    "description": "",
-                    "price": "70.00",
-                    "product_type": "Bundle",
-                    "track_inventory": false,
-                    "category": "c30a9855-ca29-496a-ab31-2226742b679a",
-                    "store": "bdf629ee-a380-4d07-b469-184bd3e9b292",
-                    "bundle_items": [
-                      {
-                        "id": "4c04a0d1-b2cb-499f-b3b8-5959ae1bbdd3",
-                        "product": "Updated Simple Product With Images"
-                      },
-                      {
-                        "id": "98692169-ff73-4645-9ec9-9b9de3312f77",
-                        "product": "Simple Product"
-                      }
-                    ]
+                    }
                   }
-                ]
+                },
+                "examples": {
+                  "basicBundle": {
+                    "summary": "Basic bundle response",
+                    "value": {
+                      "id": "b4ba352e-f9ce-4e54-aa4a-2d5653fc8b9d",
+                      "images": [],
+                      "created_at": "2025-01-19T17:11:18.367444Z",
+                      "updated_at": "2025-01-19T17:11:18.367482Z",
+                      "currency": "GHS",
+                      "name": "Bundled Products",
+                      "description": "",
+                      "price": "40.00",
+                      "product_type": "Bundle",
+                      "track_inventory": false,
+                      "category": "f03c4f78-e9c2-45ef-95e0-c7552da4aa57",
+                      "store": "d6eea8b5-fff4-4a22-b106-1c7c8d1a1a77",
+                      "bundle_items": [
+                        {
+                          "id": "b48a8d18-d8f5-4722-94a8-01e6255a1d3a",
+                          "product": "Updated Simple Product With Images"
+                        }
+                      ]
+                    }
+                  },
+                  "bundleWithImages": {
+                    "summary": "Bundle with product images",
+                    "value": {
+                      "id": "c11272d1-cd98-4085-94ce-ed62a1c94587",
+                      "images": [
+                        {
+                          "id": "89775a5e-1bd0-4b53-acda-850a802ec9a9",
+                          "image": "/media/stores/products/47dbfc06-a99.png"
+                        },
+                        {
+                          "id": "a5a1f44d-2243-4f5e-830c-860fbb844183",
+                          "image": "/media/stores/products/a3e4e120-b18.png"
+                        }
+                      ],
+                      "created_at": "2025-01-19T17:13:33.508741Z",
+                      "updated_at": "2025-01-19T17:13:33.508752Z",
+                      "currency": "GHS",
+                      "name": "Bundled Products With Images",
+                      "description": "",
+                      "price": "70.00",
+                      "product_type": "Bundle",
+                      "track_inventory": false,
+                      "category": "c30a9855-ca29-496a-ab31-2226742b679a",
+                      "store": "bdf629ee-a380-4d07-b469-184bd3e9b292",
+                      "bundle_items": [
+                        {
+                          "id": "4c04a0d1-b2cb-499f-b3b8-5959ae1bbdd3",
+                          "product": "Updated Simple Product With Images"
+                        },
+                        {
+                          "id": "98692169-ff73-4645-9ec9-9b9de3312f77",
+                          "product": "Simple Product"
+                        }
+                      ]
+                    }
+                  }
+                }
               }
             }
+          },
+          "400": {
+            "description": "Bad request - invalid input data"
+          },
+          "401": {
+            "description": "Unauthorized - authentication required"
+          },
+          "404": {
+            "description": "Store, category, or products not found"
           }
         }
       }
