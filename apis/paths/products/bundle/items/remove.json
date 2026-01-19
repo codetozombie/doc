@@ -6,6 +6,30 @@
     "parameters": [
       { "name": "id", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "The Bundle Item ID (not Product ID)" }
     ],
-    "responses": { "204": { "description": "Item removed" } }
+    "responses": {
+      "204": {
+        "description": "Bundle Item Removed",
+        "content": {
+          "application/json": {
+            "example": {
+              "status": "Bundle Item Removed"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Bundle Item Removed Error",
+        "content": {
+          "application/json": {
+            "example": {
+              "errors": {
+                "detail": "This is the last item in the bundle. To remove it, please delete the entire bundle instead."
+              },
+              "status_code": 500
+            }
+          }
+        }
+      }
+    }
   }
 }
