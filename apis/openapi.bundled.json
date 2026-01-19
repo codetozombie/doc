@@ -219,7 +219,51 @@
         },
         "responses": {
           "201": {
-            "description": "Product created"
+            "description": "Product created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                },
+                "example": {
+                  "id": "9de475d0-c383-4b56-88af-83091aa2cd2a",
+                  "images": [
+                    {
+                      "id": "308f189a-a502-4861-9aef-e890ce1c1338",
+                      "image": "/media/stores/products/4f9cd17e-f04.png"
+                    },
+                    {
+                      "id": "c26c38d4-4d4b-47a0-ab42-8fa52683bd47",
+                      "image": "/media/stores/products/4e86e8b3-f3a.png"
+                    }
+                  ],
+                  "created_at": "2025-10-29T16:54:24.983062Z",
+                  "updated_at": "2025-10-29T16:54:24.983082Z",
+                  "currency": "GHS",
+                  "name": "Simple Product With Images",
+                  "description": "",
+                  "price": "40.00",
+                  "product_type": "Simple",
+                  "track_inventory": false,
+                  "category": "f03c4f78-e9c2-45ef-95e0-c7552da4aa57",
+                  "store": "bdf629ee-a380-4d07-b469-184bd3e9b292"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericResponse"
+                },
+                "example": {
+                  "status": "Bad Request",
+                  "message": "Validation Error."
+                }
+              }
+            }
           }
         }
       }
@@ -1182,6 +1226,17 @@
           }
         }
       },
+      "GenericResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
       "OrderItem": {
         "type": "object",
         "properties": {
@@ -1346,17 +1401,6 @@
                 "example": "finance"
               }
             }
-          }
-        }
-      },
-      "GenericResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
           }
         }
       },
